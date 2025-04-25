@@ -2,6 +2,7 @@ package com.galdino.ufood.auth;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -15,10 +16,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final UserDetailsService userDetailsService;
 
-    public AuthorizationServerConfig(PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
+    public AuthorizationServerConfig(PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, UserDetailsService userDetailsService) {
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -26,7 +29,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         clients.inMemory()
                     .withClient("ufood-web")
                     .secret(passwordEncoder.encode("web123"))
-                    .authorizedGrantTypes("password")
+                    .authorizedGrantTypes("password", "refresh_token")
                     .scopes("write", "read")
                     .accessTokenValiditySeconds(60 * 60 * 6)
                .and()
@@ -41,6 +44,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.authenticationManager(authenticationManager);
+        endpoints.authenticationManager(authenticationManager)
+                 .userDetailsService(userDetailsService);
     }
 }
