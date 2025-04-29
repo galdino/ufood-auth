@@ -31,7 +31,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                     .secret(passwordEncoder.encode("web123"))
                     .authorizedGrantTypes("password", "refresh_token")
                     .scopes("write", "read")
-                    .accessTokenValiditySeconds(60 * 60 * 6)
+                    .accessTokenValiditySeconds(6 * 60 * 6)
+                    .refreshTokenValiditySeconds(10 * 24 * 60 * 60)
                .and()
                     .withClient("checktoken")
                     .secret(passwordEncoder.encode("check123"));
@@ -45,6 +46,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(authenticationManager)
-                 .userDetailsService(userDetailsService);
+                 .userDetailsService(userDetailsService)
+                 .reuseRefreshTokens(false);
     }
 }
