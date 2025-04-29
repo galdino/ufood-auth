@@ -35,7 +35,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                     .refreshTokenValiditySeconds(10 * 24 * 60 * 60)
                .and()
                     .withClient("checktoken")
-                    .secret(passwordEncoder.encode("check123"));
+                    .secret(passwordEncoder.encode("check123"))
+                .and()
+                    .withClient("ufood-job")
+                    .secret(passwordEncoder.encode("job123"))
+                    .authorizedGrantTypes("client_credentials")
+                    .scopes("write", "read")
+                    .accessTokenValiditySeconds(6 * 60 * 6);
     }
 
     @Override
