@@ -36,6 +36,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                .and()
                     .withClient("checktoken")
                     .secret(passwordEncoder.encode("check123"))
+               .and()
+                    .withClient("ufood-analytics")
+                    .secret(passwordEncoder.encode("ufood123"))
+                    .authorizedGrantTypes("authorization_code")
+                    .scopes("write", "read")
+                    .redirectUris("http://client-application")
+                //http://localhost:8081/oauth/authorize?response_type=code&client_id=ufood-analytics&state=abc&redirect_uri=http://client-application
                 .and()
                     .withClient("ufood-job")
                     .secret(passwordEncoder.encode("job123"))
