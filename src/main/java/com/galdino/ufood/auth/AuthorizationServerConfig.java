@@ -42,6 +42,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                     .authorizedGrantTypes("authorization_code")
                     .scopes("write", "read")
                     .redirectUris("http://client-application")
+               .and()
+                    .withClient("webadmin")
+                    .authorizedGrantTypes("implicit")
+                    .scopes("write", "read")
+                    .redirectUris("http://client-application")
                 //http://localhost:8081/oauth/authorize?response_type=code&client_id=ufood-analytics&state=abc&redirect_uri=http://client-application
                 .and()
                     .withClient("ufood-job")
