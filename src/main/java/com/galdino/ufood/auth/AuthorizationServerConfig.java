@@ -42,7 +42,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                     .secret(passwordEncoder.encode("check123"))
                .and()
                     .withClient("ufood-analytics")
-                    .secret(passwordEncoder.encode("ufood123"))
+                    .secret(passwordEncoder.encode(""))
                     .authorizedGrantTypes("authorization_code")
                     .scopes("write", "read")
                     .redirectUris("http://client-application")
@@ -62,7 +62,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.checkTokenAccess("isAuthenticated()");
+        security.checkTokenAccess("isAuthenticated()")
+                .allowFormAuthenticationForClients();
+
     }
 
     @Override
