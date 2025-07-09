@@ -1,4 +1,4 @@
-package com.galdino.ufood.auth;
+package com.galdino.ufood.auth.core;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

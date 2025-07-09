@@ -1,4 +1,4 @@
-package com.galdino.ufood.auth;
+package com.galdino.ufood.auth.core;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

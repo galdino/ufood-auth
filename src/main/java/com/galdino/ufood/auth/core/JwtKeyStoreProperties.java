@@ -1,4 +1,4 @@
-package com.galdino.ufood.auth;
+package com.galdino.ufood.auth.core;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
