@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class User {
+public class UGroup {
 
     @EqualsAndHashCode.Include
     @Id
@@ -20,14 +20,10 @@ public class User {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String email;
-
-    @Column(nullable = false)
-    private String password;
-
     @ManyToMany
-    @JoinTable(name = "user_ugroup", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "ugroup_id"))
-    private Set<UGroup> uGroups = new HashSet<>();
+    @JoinTable(name = "ugroup_upermission", joinColumns = @JoinColumn(name = "ugroup_id"),
+               inverseJoinColumns = @JoinColumn(name = "upermission_id"))
+    private Set<UPermission> uPermissions = new HashSet<>();
+
+
 }
